@@ -1,5 +1,5 @@
 import Sign from "./assets/Buttons/sign.jsx"
-import Welcome from "./Pages/Register/Register.jsx"
+import Welcome from "./Pages/HomePage/HomePage.jsx"
 
 function App() {
 
