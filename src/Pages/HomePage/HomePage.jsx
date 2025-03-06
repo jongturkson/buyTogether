@@ -1,23 +1,24 @@
 import React from 'react';
 import Product from './product';
+import Navbar from '../../assets/Navbar/Navbar.jsx'
 // Home Page Component
 const HomePage = () => {
   const categories = ['Electronics', 'Clothing', 'Home & Kitchen', 'Beauty', 'Sports'];
   const products = [
     {
-      image: 'https://via.placeholder.com/200',
+      image: 'https://m.media-amazon.com/images/I/51JpA4Olu4L._AC_SL1157_.jpg',
       name: 'Product 1',
       price: 29.99,
       rating: 4,
     },
     {
-      image: 'https://via.placeholder.com/200',
+      image: 'https://m.media-amazon.com/images/I/51Yzm2f9SsL._AC_SL1500_.jpg',
       name: 'Product 2',
       price: 49.99,
       rating: 5,
     },
     {
-      image: 'https://via.placeholder.com/200',
+      image: 'https://i.ebayimg.com/images/g/9PgAAOSwNHphOEue/s-l960.webp',
       name: 'Product 3',
       price: 19.99,
       rating: 3,
@@ -66,7 +67,7 @@ const HomePage = () => {
       {/* Slider for Ads */}
       <div className="mb-6">
         <div className="bg-blue-500 h-40 rounded-lg flex items-center justify-center text-white text-xl">
-          Ad Slider
+          Ad Slider. Add your ads here
         </div>
       </div>
 
@@ -97,6 +98,7 @@ const HomePage = () => {
           />
         ))}
       </div>
+      <Navbar />
     </div>
   );
 };

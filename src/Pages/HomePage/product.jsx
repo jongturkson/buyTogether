@@ -2,7 +2,7 @@
 const Product = ({ image, name, price, rating }) => {
     return (
       <div className="bg-white p-4 rounded-lg shadow-md">
-        <img src={image} alt={name} className="w-full h-48 object-cover rounded-lg" />
+        <img src={image} alt={name} className="w-full h-48 object-contain rounded-lg" />
         <h3 className="text-lg font-semibold mt-2">{name}</h3>
         <p className="text-gray-600">${price}</p>
         <div className="flex items-center mt-1">

@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Navbar = () => {
+  const [activePage, setActivePage] = useState('Home'); // Default active page
+
+  // Function to handle button clicks
+  const handlePageChange = (page) => {
+    setActivePage(page);
+  };
+
+  // Helper function to determine if a page is active
+  const isActive = (page) => activePage === page;
+
   return (
     <nav className="bg-white fixed bottom-0 left-0 right-0 mx-auto max-w-md rounded-t-2xl shadow-lg">
       <div className="flex justify-around items-center p-4">
         {/* Home Icon */}
-        <button className="flex flex-col items-center text-gray-600 hover:text-rose-500 transition duration-300">
+        <button
+          onClick={() => handlePageChange('Home')}
+          className={`flex flex-col items-center transition duration-300 ${
+            isActive('Home') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
+          }`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -24,7 +39,12 @@ const Navbar = () => {
         </button>
 
         {/* Add Group Icon */}
-        <button className="flex flex-col items-center text-gray-600 hover:text-rose-500 transition duration-300">
+        <button
+          onClick={() => handlePageChange('Add Group')}
+          className={`flex flex-col items-center transition duration-300 ${
+            isActive('Add Group') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
+          }`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -43,7 +63,12 @@ const Navbar = () => {
         </button>
 
         {/* Services Icon */}
-        <button className="flex flex-col items-center text-gray-600 hover:text-rose-500 transition duration-300">
+        <button
+          onClick={() => handlePageChange('Services')}
+          className={`flex flex-col items-center transition duration-300 ${
+            isActive('Services') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
+          }`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
@@ -62,7 +87,12 @@ const Navbar = () => {
         </button>
 
         {/* Profile Icon */}
-        <button className="flex flex-col items-center text-gray-600 hover:text-rose-500 transition duration-300">
+        <button
+          onClick={() => handlePageChange('Profile')}
+          className={`flex flex-col items-center transition duration-300 ${
+            isActive('Profile') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
+          }`}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6"
