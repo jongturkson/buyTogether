@@ -1,4 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
 
 // Placeholder images for logo and user profiles
 const logo = 'src/Pages/logo.jpg'; // Replace with your logo URL
@@ -7,6 +10,7 @@ const user2 = 'src/Pages/user/user1.png'; // Replace with user profile image
 const user3 = 'src/Pages/user/user1.png'; // Replace with user profile image
 
 const Welcome = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
       {/* Header with Logo */}
@@ -82,10 +86,10 @@ const Welcome = () => {
           It is a collaborative shopping platform that brings people together to pool their capital in India, purchases and divided. Steplish cards. Register today and get the up to says reduction on single products.
         </p>
         <div className="flex justify-center gap-4">
-          <button className="bg-rose-500 text-white px-6 py-2 rounded-lg hover:bg-rose-600 transition duration-300">
+          <button className="bg-rose-500 text-white px-6 py-2 rounded-lg hover:bg-rose-600 transition duration-300" onClick={() => navigate('/register')}>
             Register
           </button>
-          <button className="bg-rose-400 text-white px-6 py-2 rounded-lg hover:bg-rose-500 transition duration-300">
+          <button className="bg-rose-400 text-white px-6 py-2 rounded-lg hover:bg-rose-500 transition duration-300" onClick={() => navigate('/login')}>
             Sign In
           </button>
         </div>

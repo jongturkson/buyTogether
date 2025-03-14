@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationPage = () => {
-  return (
-    <div 
+  const navigate = useNavigate();
+  return (  
+    <div
     className="min-h-screen flex items-center justify-center p-6"
       style={{
         background: "linear-gradient(to bottom, #4CAF50 50%, #F3F4F6 50%)",
@@ -68,12 +70,12 @@ const RegistrationPage = () => {
         </div>
 
         {/* Signup Button */}
-        <button className="w-full bg-rose-500 text-white py-2 rounded-lg hover:bg-rose-600 transition duration-300 mb-4">
+        <button className="w-full bg-rose-500 text-white py-2 rounded-lg hover:bg-rose-600 transition duration-300 mb-4" onClick={() => navigate('/login')}>
           Signup
         </button>
 
         {/* Login Link */}
-        <p className="text-sm text-gray-600 text-center mb-6">
+        <p className="text-sm text-gray-600 text-center mb-6" onClick={() => navigate('/login')} >
           Already have an account?{' '}
           <a href="#" className="text-blue-500 hover:underline">
             Login

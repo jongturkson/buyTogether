@@ -32,7 +32,7 @@ function ProfilePage(){
             </div>
             
             {/* Blurred foggy div at the intersection */}
-            <div className="flex justify-center absolute left-0 right-0 top-12 h-24 mr-50 ml-50 bg-white rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-md z-10">
+            <div className="flex justify-center absolute left-0 right-0 top-12 h-24 mr-50 ml-50 bg-gray-100 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-md z-10">
                 {/* Profile picture and name */}
                 <Profile imageUrl={"src/Pages/ProfilePage/logo.jpg"} name={"Jong Turkson"} location={"Douala"}/>
             </div>

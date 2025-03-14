@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   return (
     <div
       className="min-h-screen flex items-center justify-center p-6"
@@ -58,7 +60,7 @@ const LoginPage = () => {
         </div>
 
         {/* Log In Button */}
-        <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 mb-4">
+        <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 mb-4" onClick={() => navigate('/home')}>
           Log In
         </button>
 
@@ -80,7 +82,7 @@ const LoginPage = () => {
         </button>
 
         {/* Register Link */}
-        <p className="text-sm text-gray-600 text-center mt-6">
+        <p className="text-sm text-gray-600 text-center mt-6" onClick={() => navigate('/register')}>
           Don't have an account?{' '}
           <a href="#" className="text-blue-500 hover:underline">
             Register
