@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Product Component (Reused for Recommended Products)
 const Product = ({ image, name, price, rating }) => {
@@ -26,6 +27,7 @@ const Product = ({ image, name, price, rating }) => {
 
 // Product Detail Page Component
 const ProductDetailPage = () => {
+  const navigate = useNavigate();
   const [activeImage, setActiveImage] = useState(0);
 
   const productImages = [
@@ -159,7 +161,7 @@ const ProductDetailPage = () => {
         <button className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300">
           BUY
         </button>
-        <button className="w-full bg-rose-500 text-white py-2 rounded-lg hover:bg-rose-600 transition duration-300">
+        <button className="w-full bg-rose-500 text-white py-2 rounded-lg hover:bg-rose-600 transition duration-300" onClick={() => navigate('/create-group')}>
           Create Group
         </button>
       </div>

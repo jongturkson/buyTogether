@@ -1,22 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const [activePage, setActivePage] = useState('Home'); // Default active page
+  const [activePage, setActivePage] = useState('Home');
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // Function to handle button clicks
-  const handlePageChange = (page) => {
-    setActivePage(page);
+  useEffect(() => {
+    const path = location.pathname;
+    if (path === '/home') {
+      setActivePage('Home');
+    } else if (path === '/create-group') {
+      setActivePage('Add Group');
+    } else if (path === '/groups') {
+      setActivePage('Services');
+    } else if (path === '/profile') {
+      setActivePage('Profile');
+    }
+  }, [location.pathname]);
+
+  const handlePageChange = (page, path) => {
+    navigate(path);
   };
 
-  // Helper function to determine if a page is active
   const isActive = (page) => activePage === page;
-
   return (
     <nav className="bg-white fixed bottom-0 left-0 right-0 mx-auto max-w-md rounded-t-2xl shadow-lg">
       <div className="flex justify-around items-center p-4">
         {/* Home Icon */}
         <button
-          onClick={() => handlePageChange('Home')}
+          onClick={() => handlePageChange('Home', '/home')}
           className={`flex flex-col items-center transition duration-300 ${
             isActive('Home') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
           }`}
@@ -40,7 +53,7 @@ const Navbar = () => {
 
         {/* Add Group Icon */}
         <button
-          onClick={() => handlePageChange('Add Group')}
+          onClick={() => handlePageChange('Add Group', '/create-group')}
           className={`flex flex-col items-center transition duration-300 ${
             isActive('Add Group') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
           }`}
@@ -64,7 +77,7 @@ const Navbar = () => {
 
         {/* Services Icon */}
         <button
-          onClick={() => handlePageChange('Services')}
+          onClick={() => handlePageChange('Services', '/groups')}
           className={`flex flex-col items-center transition duration-300 ${
             isActive('Services') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
           }`}
@@ -88,7 +101,7 @@ const Navbar = () => {
 
         {/* Profile Icon */}
         <button
-          onClick={() => handlePageChange('Profile')}
+          onClick={() => handlePageChange('Profile', '/profile')}
           className={`flex flex-col items-center transition duration-300 ${
             isActive('Profile') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
           }`}

@@ -1,6 +1,9 @@
 import React from 'react';
+import Navbar from '../../assets/Navbar/Navbar.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const GroupListPage = () => {
+  const navigate = useNavigate();
   // Dummy group data (replace with your actual data)
   const groups = [
     { id: 1, name: 'coco', price: 500, image: 'path/to/profile1.jpg' },
@@ -69,6 +72,7 @@ const GroupListPage = () => {
             <div
               key={group.id}
               className="bg-white p-3 rounded-lg flex items-center justify-between shadow-sm"
+              onClick={() => navigate('/group-info')}
             >
               <div className="flex items-center">
                 <img
@@ -100,6 +104,9 @@ const GroupListPage = () => {
           />
         </svg>
       </button>
+      <div className="fixed bottom-0 left-0 right-0 z-20">
+        <Navbar />
+      </div>
     </div>
   );
 };

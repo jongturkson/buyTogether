@@ -22,7 +22,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/create-group" element={<CreateGroupForm />} />
           <Route path="/group-info" element={<GroupInfoAdmin />} /> 
-          <Route path="/group-info" element={<GroupInfoUser />} />
+          <Route path="/group-info-" element={<GroupInfoUser />} />
           <Route path="/groups" element={<GroupList />} />
           <Route path="/home" element={<Home />} />
           <Route path="/products" element={<Products />} />

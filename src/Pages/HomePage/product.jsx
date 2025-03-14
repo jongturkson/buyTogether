@@ -1,10 +1,15 @@
 // Product Component
+import { useNavigate } from "react-router-dom";
+
 const Product = ({ image, name, price, rating }) => {
+  const navigate = useNavigate();
     return (
       <div className="bg-white p-4 rounded-lg shadow-md">
+        <div onClick={() => navigate('/products')}> 
         <img src={image} alt={name} className="w-full h-48 object-contain rounded-lg" />
         <h3 className="text-lg font-semibold mt-2">{name}</h3>
         <p className="text-gray-600">${price}</p>
+        </div>
         <div className="flex items-center mt-1">
           {Array.from({ length: 5 }, (_, i) => (
             <svg
