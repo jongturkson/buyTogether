@@ -6,10 +6,9 @@ const getAuthHeaders = () => {
   if (token) {
     return {
       Authorization: `Bearer ${token}`,
-      //'Content-Type': 'application/json', // Removed this as some endpoints use multipart/form-data
       'Accept': 'application/json',
     };
-  }
+  };
   return {
       'Accept': 'application/json',
   };
@@ -49,10 +48,11 @@ export const loginUser = async (credentials) => {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
+      
       body: JSON.stringify(credentials),
     });
     const data = await handleResponse(response);
-    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('user', JSON.stringify(data));
     return data;
   };
   
