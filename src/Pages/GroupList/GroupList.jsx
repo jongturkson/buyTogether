@@ -72,7 +72,7 @@ const GroupListPage = () => {
             <div
               key={group.id}
               className="bg-white p-3 rounded-lg flex items-center justify-between shadow-sm"
-              onClick={() => navigate('/group-info')}
+              onClick={() => navigate('/group-info-')}
             >
               <div className="flex items-center">
                 <img
@@ -88,7 +88,7 @@ const GroupListPage = () => {
         </div>
       </div>
 
-      <button className="fixed bottom-4 right-4 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600">
+      <button className="fixed bottom-4 right-4 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600" onClick={() => navigate('/create-group')}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-8 w-8"

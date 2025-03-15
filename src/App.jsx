@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+// src/App.jsx
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Welcome from './Pages/Welcome.jsx';
 import Register from './Pages/Register/Register.jsx';
 import Login from './Pages/Login/LoginPage.jsx';
@@ -9,10 +10,9 @@ import GroupList from './Pages/GroupList/GroupList.jsx';
 import Home from './Pages/HomePage/HomePage.jsx';
 import Products from './Pages/ProductPage/ProductPage.jsx';
 import ProfilePage from "./Pages/ProfilePage/ProfilePage.jsx";
-
+import ProtectedRoute from "./components/ProtectedRoute"; // Import the new component
 
 function App() {
-
   return (
     <Router>
       <div>
@@ -20,17 +20,25 @@ function App() {
           <Route exact path="/" element={<Welcome />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          {/* Protected route for /home */}
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/create-group" element={<CreateGroupForm />} />
-          <Route path="/group-info" element={<GroupInfoAdmin />} /> 
+          <Route path="/group-info" element={<GroupInfoAdmin />} />
           <Route path="/group-info-" element={<GroupInfoUser />} />
           <Route path="/groups" element={<GroupList />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/profile" element={<ProfilePage />} /> 
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

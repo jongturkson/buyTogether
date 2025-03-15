@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../../api/api';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+
+
+const handleLogin = async () => {
+  setError(null);
+  try {
+    const data = await loginUser({ email, password });
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user)); // add this line
+    console.log('Login successful:', data);
+    navigate('/home');
+  } catch (err) {
+    setError(err.message);
+    console.error('Login failed:', err);
+  }
+};
+
+
   return (
     <div
       className="min-h-screen flex items-center justify-center p-6"
@@ -30,6 +51,8 @@ const LoginPage = () => {
             type="email"
             placeholder="johndoe@gmail.com"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
@@ -42,51 +65,23 @@ const LoginPage = () => {
             type="password"
             placeholder="Enter your password"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-
-        {/* Remember Me Checkbox */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="remember-me"
-              className="w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"
-            />
-            <label htmlFor="remember-me" className="ml-2 text-sm text-gray-700">
-              Remember me
-            </label>
-          </div>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
 
         {/* Log In Button */}
-        <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 mb-4" onClick={() => navigate('/home')}>
+        <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300 mb-4" onClick={handleLogin}>
           Log In
         </button>
 
-        {/* Divider */}
-        <div className="flex items-center justify-center my-6">
-          <div className="border-t border-gray-300 flex-grow"></div>
-          <span className="mx-4 text-sm text-gray-500">Or</span>
-          <div className="border-t border-gray-300 flex-grow"></div>
-        </div>
-
-        {/* Continue with Google Button */}
-        <button className="w-full bg-white border border-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-50 transition duration-300 flex items-center justify-center">
-          <img
-            src="https://www.svgrepo.com/show/355037/google.svg"
-            alt="Google Logo"
-            className="w-5 h-5 mr-2"
-          />
-          Continue with Google
-        </button>
-
         {/* Register Link */}
-        <p className="text-sm text-gray-600 text-center mt-6" onClick={() => navigate('/register')}>
+        <p className="text-sm text-gray-600 text-center mt-6">
           Don't have an account?{' '}
-          <a href="#" className="text-blue-500 hover:underline">
+          <button className="text-blue-500 hover:underline" onClick={() => navigate('/register')}>
             Register
-          </a>
+          </button>
         </p>
       </div>
     </div>
