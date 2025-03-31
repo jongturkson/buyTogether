@@ -4,8 +4,8 @@ import Welcome from './Pages/Welcome.jsx';
 import Register from './Pages/Register/Register.jsx';
 import Login from './Pages/Login/LoginPage.jsx';
 import CreateGroupForm from './Pages/CreateGroupForm/CreateGroupForm.jsx';
-import GroupInfoAdmin from './Pages/GroupInfo/GroupInfo.jsx';
-import GroupInfoUser from './Pages/GroupInfo/GroupInfo2.jsx';
+import GroupInfo from './Pages/GroupInfo/GroupInfo.jsx';
+import GroupInfo2 from './Pages/GroupInfo/GroupInfo2.jsx';
 import GroupList from './Pages/GroupList/GroupList.jsx';
 import Home from './Pages/HomePage/HomePage.jsx';
 import Products from './Pages/ProductPage/ProductPage.jsx';
@@ -29,9 +29,9 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/create-group" element={<CreateGroupForm />} />
-          <Route path="/group-info" element={<GroupInfoAdmin />} />
-          <Route path="/group-info-" element={<GroupInfoUser />} />
+          <Route path="/create-group" element={<ProtectedRoute><CreateGroupForm /></ProtectedRoute>} />
+          <Route path="/group/:id" element={<GroupInfo />} />
+          <Route path="/group-info-" element={<GroupInfo2 />} />
           <Route path="/groups" element={<GroupList />} />
           <Route path="/products" element={<Products />} />
           <Route path="/profile" element={<ProfilePage />} />

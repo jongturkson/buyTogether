@@ -13,7 +13,7 @@ const Navbar = () => {
     } else if (path === '/create-group') {
       setActivePage('Add Group');
     } else if (path === '/groups') {
-      setActivePage('Services');
+      setActivePage('Groups');
     } else if (path === '/profile') {
       setActivePage('Profile');
     }
@@ -75,11 +75,11 @@ const Navbar = () => {
           <span className="text-xs mt-1">Add Group</span>
         </button>
 
-        {/* Services Icon */}
+        {/* Groups Icon */}
         <button
-          onClick={() => handlePageChange('Services', '/groups')}
+          onClick={() => handlePageChange('Groups', '/groups')}
           className={`flex flex-col items-center transition duration-300 ${
-            isActive('Services') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
+            isActive('Groups') ? 'text-rose-500' : 'text-gray-600 hover:text-rose-500'
           }`}
         >
           <svg
@@ -96,7 +96,7 @@ const Navbar = () => {
               d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
             />
           </svg>
-          <span className="text-xs mt-1">Services</span>
+          <span className="text-xs mt-1">Groups</span>
         </button>
 
         {/* Profile Icon */}

@@ -8,21 +8,17 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
-
-const handleLogin = async () => {
-  setError(null);
-  try {
-    const data = await loginUser({ email, password });
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('user', JSON.stringify(data.user)); // add this line
-    console.log('Login successful:', data);
-    navigate('/home');
-  } catch (err) {
-    setError(err.message);
-    console.error('Login failed:', err);
-  }
-};
-
+  const handleLogin = async () => {
+    setError(null);
+    try {
+      const data = await loginUser({ email, password });
+      console.log('Login successful:', data);
+      navigate('/home');
+    } catch (err) {
+      setError(err.message);
+      console.error('Login failed:', err);
+    }
+  };
 
   return (
     <div

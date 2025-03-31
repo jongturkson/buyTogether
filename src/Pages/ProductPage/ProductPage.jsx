@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../../assets/Navbar/Navbar.jsx';
 
 // Product Component (Reused for Recommended Products)
 const Product = ({ image, name, price, rating }) => {
@@ -207,6 +208,7 @@ const ProductDetailPage = () => {
           ))}
         </div>
       </div>
+      <Navbar />
     </div>
   );
 };

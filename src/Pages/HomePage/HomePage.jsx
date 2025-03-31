@@ -1,29 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Product from './product';
-import Navbar from '../../assets/Navbar/Navbar.jsx'
+import Navbar from '../../assets/Navbar/Navbar.jsx';
+import { getPurchaseGoals } from '../../api/api';
+
 // Home Page Component
 const HomePage = () => {
   const categories = ['Electronics', 'Clothing', 'Home & Kitchen', 'Beauty', 'Sports'];
-  const products = [
-    {
-      image: 'https://m.media-amazon.com/images/I/51JpA4Olu4L._AC_SL1157_.jpg',
-      name: 'Product 1',
-      price: 29.99,
-      rating: 4,
-    },
-    {
-      image: 'https://m.media-amazon.com/images/I/51Yzm2f9SsL._AC_SL1500_.jpg',
-      name: 'Product 2',
-      price: 49.99,
-      rating: 5,
-    },
-    {
-      image: 'https://i.ebayimg.com/images/g/9PgAAOSwNHphOEue/s-l960.webp',
-      name: 'Product 3',
-      price: 19.99,
-      rating: 3,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getPurchaseGoals();
+        setProducts(data.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-100 p-4 flex items-center justify-center">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-100 p-4 flex items-center justify-center">
+        <div className="text-center text-red-500">Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
@@ -90,11 +106,11 @@ const HomePage = () => {
       <div className="grid grid-cols-2 gap-4">
         {products.map((product, index) => (
           <Product
-            key={index}
-            image={product.image}
-            name={product.name}
-            price={product.price}
-            rating={product.rating}
+            key={product.id}
+            image={product.product ? product.product.image : "https://placehold.co/300x300/"}
+            name={product.product ? product.product.name : "No product"}
+            price={product.target_amount}
+            rating={4} // You might need to adjust how you get the rating
           />
         ))}
       </div>

@@ -1,162 +1,150 @@
-// src/api/api.js
-const API_BASE_URL = 'https://rrn24.techchantier.site/buy-together-api/public/api';
-
-const getAuthHeaders = () => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    return {
-      Authorization: `Bearer ${token}`,
-      'Accept': 'application/json',
-    };
-  };
-  return {
-      'Accept': 'application/json',
-  };
-};
+// api.js
+const API_BASE_URL = 'https://rrn24.techchantier.site/buy-together-api/public';
 
 const handleResponse = async (response) => {
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || `API request failed with status ${response.status}`);
+    throw new Error(errorData.message || 'Request failed');
   }
-  if (response.status === 204) return null; // No Content
   return response.json();
 };
 
-// User Authentication
+const getHeaders = (isJson = true) => {
+  const token = localStorage.getItem('token');
+  const headers = {
+    Accept: 'application/json',
+  };
+  if (isJson) {
+    headers['Content-Type'] = 'application/json';
+  }
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  return headers;
+};
+
+// Authentication
 export const registerUser = async (userData) => {
   const formData = new FormData();
-  Object.keys(userData).forEach(key => {
-      formData.append(key, userData[key]);
-  });
-
-  const response = await fetch(`${API_BASE_URL}/register`, {
+  for (const key in userData) {
+    formData.append(key, userData[key]);
+  }
+  const response = await fetch(`${API_BASE_URL}/api/register`, {
     method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-    },
+    headers: getHeaders(false),
     body: formData,
   });
   return handleResponse(response);
 };
 
-// Log in an existing user
 export const loginUser = async (credentials) => {
-    const response = await fetch(`${API_BASE_URL}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      
-      body: JSON.stringify(credentials),
-    });
-    const data = await handleResponse(response);
-    localStorage.setItem('user', JSON.stringify(data));
-    return data;
-  };
-  
+  const response = await fetch(`${API_BASE_URL}/api/login`, {
+    method: 'POST',
+    headers: getHeaders(),
+    body: JSON.stringify(credentials),
+  });
+  const data = await handleResponse(response); // Call handleResponse only once
+  localStorage.setItem('token', data.data.token); // Store the token
+  localStorage.setItem('user', JSON.stringify(data.data.user)); // Store the user data
+  return data;
+};
 
 export const logoutUser = async () => {
-  const response = await fetch(`${API_BASE_URL}/logout`, {
+  const response = await fetch(`${API_BASE_URL}/api/logout`, {
     method: 'POST',
-    headers: getAuthHeaders(),
+    headers: getHeaders(),
   });
-  localStorage.removeItem('token');
   return handleResponse(response);
 };
 
-// Purchase Goals (Groups)
+// Purchase Goals
 export const getPurchaseGoals = async () => {
-  const response = await fetch(`${API_BASE_URL}/purchase-goals`, {
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals`, {
     method: 'GET',
-    headers: getAuthHeaders(), // This endpoint does not require authentication
+    headers: getHeaders(),
   });
   return handleResponse(response);
 };
 
 export const getPurchaseGoal = async (goalId) => {
-  const response = await fetch(`${API_BASE_URL}/purchase-goals/${goalId}`, {
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals/${goalId}`, {
     method: 'GET',
-    headers: getAuthHeaders(),
+    headers: getHeaders(),
   });
   return handleResponse(response);
 };
 
 export const createPurchaseGoal = async (goalData) => {
-    const formData = new FormData();
-    Object.keys(goalData).forEach(key => {
-        formData.append(key, goalData[key]);
-    });
-  const response = await fetch(`${API_BASE_URL}/purchase-goals`, {
+  const formData = new FormData();
+  for (const key in goalData) {
+    formData.append(key, goalData[key]);
+  }
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals`, {
     method: 'POST',
-    headers: getAuthHeaders(),
+    headers: getHeaders(false),
     body: formData,
   });
   return handleResponse(response);
 };
 
 export const updatePurchaseGoal = async (goalId, goalData) => {
-    const formData = new FormData();
-    Object.keys(goalData).forEach(key => {
-        formData.append(key, goalData[key]);
-    });
-  const response = await fetch(`${API_BASE_URL}/purchase-goals/${goalId}`, {
-    method: 'PUT', // or PATCH if you're only updating some fields
-    headers: getAuthHeaders(),
+  const formData = new FormData();
+  for (const key in goalData) {
+    formData.append(key, goalData[key]);
+  }
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals/${goalId}`, {
+    method: 'PUT',
+    headers: getHeaders(false),
     body: formData,
   });
   return handleResponse(response);
 };
 
 export const deletePurchaseGoal = async (goalId) => {
-  const response = await fetch(`${API_BASE_URL}/purchase-goals/${goalId}`, {
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals/${goalId}`, {
     method: 'DELETE',
-    headers: getAuthHeaders(),
+    headers: getHeaders(),
   });
   return handleResponse(response);
 };
 
 export const changePurchaseGoalStatus = async (goalId) => {
-    const response = await fetch(`${API_BASE_URL}/purchase-goals/${goalId}/change-status`, {
-      method: 'POST',
-      headers: getAuthHeaders(),
-    });
-    return handleResponse(response);
-  };
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals/${goalId}/change-status`, {
+    method: 'POST',
+    headers: getHeaders(),
+  });
+  return handleResponse(response);
+};
 
 // User Participation
-export const getParticipants = async (goalId) => {
-  const response = await fetch(`${API_BASE_URL}/purchase-goals/${goalId}/participants`, {
+export const getPurchaseGoalParticipants = async (goalId) => {
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals/${goalId}/participants`, {
     method: 'GET',
-    headers: getAuthHeaders(),
+    headers: getHeaders(),
   });
   return handleResponse(response);
 };
 
 export const joinPurchaseGoal = async (goalId) => {
-  const response = await fetch(`${API_BASE_URL}/purchase-goals/${goalId}/join`, {
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals/${goalId}/join`, {
     method: 'POST',
-    headers: getAuthHeaders(),
+    headers: getHeaders(),
   });
   return handleResponse(response);
 };
 
-export const approveParticipant = async (goalId, userId) => {
-  const response = await fetch(`${API_BASE_URL}/purchase-goals/${goalId}/approve/${userId}`, {
+export const approveUser = async (goalId, userId) => {
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals/${goalId}/approve/${userId}`, {
     method: 'POST',
-    headers: getAuthHeaders(),
+    headers: getHeaders(),
   });
   return handleResponse(response);
 };
 
-export const declineParticipant = async (goalId, userId) => {
-  const response = await fetch(`${API_BASE_URL}/purchase-goals/${goalId}/decline/${userId}`, {
+export const declineUser = async (goalId, userId) => {
+  const response = await fetch(`${API_BASE_URL}/api/purchase-goals/${goalId}/decline/${userId}`, {
     method: 'POST',
-    headers: getAuthHeaders(),
+    headers: getHeaders(),
   });
   return handleResponse(response);
 };
-
-
-
